@@ -876,7 +876,7 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
 <!-- JavaScript -->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        // Unbind jQuery event listeners if jQuery is loaded
+        // Make sure no jQuery bindings interfere
         if (window.jQuery) {
             $('#contact_form').off('submit');
         }
@@ -885,33 +885,27 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
         const resultDiv = document.getElementById("result");
 
         form.addEventListener("submit", async function (event) {
-            event.preventDefault(); // Prevent the default form submission
+            event.preventDefault(); // Prevent default
 
             // Display loading message
             resultDiv.textContent = "Sending your message...";
 
             // Collect form data
             const formData = new FormData(form);
-            const data = {
-                name: formData.get("name"),
-                email: formData.get("email"),
-                message: formData.get("message")
-            };
 
             try {
-                // Send data as JSON to Formspree
+                // Send form data to Formspree
                 const response = await fetch(form.action, {
                     method: "POST",
                     headers: {
-                        "Accept": "application/json",
-                        "Content-Type": "application/json"
+                        Accept: "application/json",
                     },
-                    body: JSON.stringify(data),
+                    body: formData,
                 });
 
                 if (response.ok) {
                     resultDiv.textContent = "Thank you! Your message has been sent.";
-                    form.reset(); // Reset the form fields
+                    form.reset();
                 } else {
                     const errorData = await response.json();
                     resultDiv.textContent = `Error: ${errorData.error || "Something went wrong!"}`;
@@ -923,6 +917,7 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
     });
 </script>
 <!-- End Contact Form -->
+
 
                         
                     </div>
@@ -1002,7 +997,6 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
         <script src="js/morphext.js"></script>
         <script src="js/typed.min.js"></script>
         <script src="js/all.js"></script>
-        <script src="js/contact-form.js"></script>
         <script src="js/jquery.ajaxchimp.min.js"></script>
         <script src="js/objectFitPolyfill.min.js"></script>
         <script src="js/splitting.min.js"></script>

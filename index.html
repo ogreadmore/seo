@@ -876,6 +876,11 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
 <!-- JavaScript -->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
+        // Unbind jQuery event listeners if jQuery is loaded
+        if (window.jQuery) {
+            $('#contact_form').off('submit');
+        }
+
         const form = document.getElementById("contact_form");
         const resultDiv = document.getElementById("result");
 
@@ -911,6 +916,7 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
         });
     });
 </script>
+
 
                         <!-- End Contact Form -->
                         

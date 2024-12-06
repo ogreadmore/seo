@@ -892,15 +892,21 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
 
             // Collect form data
             const formData = new FormData(form);
+            const data = {
+                name: formData.get("name"),
+                email: formData.get("email"),
+                message: formData.get("message")
+            };
 
             try {
-                // Send form data to Formspree
+                // Send data as JSON to Formspree
                 const response = await fetch(form.action, {
                     method: "POST",
                     headers: {
-                        Accept: "application/json",
+                        "Accept": "application/json",
+                        "Content-Type": "application/json"
                     },
-                    body: formData,
+                    body: JSON.stringify(data),
                 });
 
                 if (response.ok) {
@@ -916,9 +922,8 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
         });
     });
 </script>
+<!-- End Contact Form -->
 
-
-                        <!-- End Contact Form -->
                         
                     </div>
                 </section>
